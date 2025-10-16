@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import Navbar from "@/components/Navbar";
 
 const CarDetail = () => {
   const { id } = useParams();
@@ -49,6 +50,7 @@ const CarDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
         <Button 
           variant="ghost" 

@@ -22,12 +22,25 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <Button 
               variant="ghost"
+              onClick={() => navigate("/")}
+            >
+              Home
+            </Button>
+            <Button 
+              variant="ghost"
               onClick={() => navigate("/listings")}
             >
               Browse Cars
             </Button>
             <Button 
+              variant="ghost"
+              onClick={() => navigate("/my-listings")}
+            >
+              My Listings
+            </Button>
+            <Button 
               variant="outline"
+              onClick={() => navigate("/add-listing")}
             >
               Sell Your Car
             </Button>
