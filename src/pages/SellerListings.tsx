@@ -70,13 +70,13 @@ const SellerListings = () => {
             </div>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-3 gap-4">
             {mockSellerCars.map((car) => (
               <Card 
                 key={car.id} 
                 className="overflow-hidden hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative overflow-hidden h-48">
+                <div className="relative overflow-hidden h-32">
                   <img 
                     src={car.image} 
                     alt={car.title}

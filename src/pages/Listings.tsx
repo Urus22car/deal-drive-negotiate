@@ -80,14 +80,14 @@ const Listings = () => {
           <p className="text-muted-foreground">Find your perfect car and start negotiating</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-4">
           {mockCars.map((car) => (
             <Card 
               key={car.id} 
               className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
               onClick={() => navigate(`/car/${car.id}`)}
             >
-              <div className="relative overflow-hidden h-48">
+              <div className="relative overflow-hidden h-32">
                 <img 
                   src={car.image} 
                   alt={car.title}
