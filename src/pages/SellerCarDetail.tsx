@@ -34,7 +34,7 @@ const SellerCarDetail = () => {
     setOffers(offers.map(offer => 
       offer.id === offerId ? { ...offer, status: "accepted" } : offer
     ));
-    toast.success(`Offer of $${amount.toLocaleString()} accepted!`);
+    toast.success(`Offer of ₹${amount.toLocaleString()} accepted!`);
   };
 
   const handleDeclineOffer = (offerId: number) => {
@@ -50,7 +50,7 @@ const SellerCarDetail = () => {
       return;
     }
     
-    toast.success(`Counter offer of $${parseFloat(counterOffer).toLocaleString()} sent!`);
+    toast.success(`Counter offer of ₹${parseFloat(counterOffer).toLocaleString()} sent!`);
     setCounterOffer("");
   };
 
@@ -81,7 +81,7 @@ const SellerCarDetail = () => {
             <Card className="p-6">
               <h1 className="text-3xl font-bold mb-4">{carDetails.title}</h1>
               <p className="text-4xl font-bold text-primary mb-6">
-                ${carDetails.price.toLocaleString()}
+                ₹{carDetails.price.toLocaleString()}
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -91,7 +91,7 @@ const SellerCarDetail = () => {
                 </div>
                 <div className="flex items-center text-muted-foreground">
                   <Gauge className="w-5 h-5 mr-2" />
-                  <span>{carDetails.mileage.toLocaleString()} miles</span>
+                  <span>{carDetails.mileage.toLocaleString()} Km</span>
                 </div>
                 <div className="flex items-center text-muted-foreground">
                   <Calendar className="w-5 h-5 mr-2" />
@@ -136,7 +136,7 @@ const SellerCarDetail = () => {
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <p className="text-2xl font-bold text-primary">
-                          ${offer.amount.toLocaleString()}
+                          ₹{offer.amount.toLocaleString()}
                         </p>
                         <p className="text-sm text-muted-foreground">
                           from {offer.buyerName}
@@ -180,7 +180,7 @@ const SellerCarDetail = () => {
                           <label className="block text-xs font-medium mb-1">Counter Offer</label>
                           <div className="flex gap-2">
                             <div className="relative flex-1">
-                              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">$</span>
+                              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">₹</span>
                               <Input 
                                 type="number"
                                 placeholder="Amount"

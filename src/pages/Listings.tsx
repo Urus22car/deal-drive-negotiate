@@ -80,46 +80,46 @@ const Listings = () => {
           <p className="text-muted-foreground">Find your perfect car and start negotiating</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-2 md:gap-4">
           {mockCars.map((car) => (
             <Card 
               key={car.id} 
               className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
               onClick={() => navigate(`/car/${car.id}`)}
             >
-              <div className="relative overflow-hidden h-32">
+              <div className="relative overflow-hidden h-20 md:h-32">
                 <img 
                   src={car.image} 
                   alt={car.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
+                <Badge className="absolute top-2 right-2 md:top-4 md:right-4 bg-primary text-primary-foreground text-xs">
                   {car.status === "negotiating" ? "In Negotiation" : "Available"}
                 </Badge>
               </div>
               
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{car.title}</h3>
-                <p className="text-3xl font-bold text-primary mb-4">
-                  ${car.price.toLocaleString()}
+              <div className="p-2 md:p-6">
+                <h3 className="text-sm md:text-xl font-semibold mb-1 md:mb-2">{car.title}</h3>
+                <p className="text-lg md:text-3xl font-bold text-primary mb-2 md:mb-4">
+                  ₹{car.price.toLocaleString()}
                 </p>
                 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 mr-2" />
+                <div className="space-y-1 md:space-y-2 mb-2 md:mb-4">
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <MapPin className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
                     {car.location}
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Gauge className="w-4 h-4 mr-2" />
-                    {car.mileage.toLocaleString()} miles
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <Gauge className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+                    {car.mileage.toLocaleString()} Km
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4 mr-2" />
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <Calendar className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
                     {car.year}
                   </div>
                 </div>
 
-                <Button className="w-full" size="lg">
+                <Button className="w-full text-xs md:text-sm" size="sm">
                   View Details & Make Offer
                 </Button>
               </div>

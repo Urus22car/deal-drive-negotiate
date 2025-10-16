@@ -75,7 +75,7 @@ const CarDetail = () => {
             <Card className="p-6 mb-6">
               <h1 className="text-3xl font-bold mb-4">{carDetails.title}</h1>
               <p className="text-4xl font-bold text-primary mb-6">
-                ${carDetails.price.toLocaleString()}
+                ₹{carDetails.price.toLocaleString()}
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -85,7 +85,7 @@ const CarDetail = () => {
                 </div>
                 <div className="flex items-center text-muted-foreground">
                   <Gauge className="w-5 h-5 mr-2" />
-                  <span>{carDetails.mileage.toLocaleString()} miles</span>
+                  <span>{carDetails.mileage.toLocaleString()} Km</span>
                 </div>
                 <div className="flex items-center text-muted-foreground">
                   <Calendar className="w-5 h-5 mr-2" />
@@ -121,7 +121,7 @@ const CarDetail = () => {
                 <label className="block text-sm font-medium mb-2">Your Offer</label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₹</span>
                     <Input 
                       type="number"
                       placeholder="Enter amount"
@@ -151,7 +151,7 @@ const CarDetail = () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <p className="font-semibold">
-                            ${offer.amount.toLocaleString()}
+                            ₹{offer.amount.toLocaleString()}
                           </p>
                           <p className="text-sm text-muted-foreground">{offer.message}</p>
                         </div>
