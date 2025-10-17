@@ -5,27 +5,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Car } from "lucide-react";
 import { toast } from "sonner";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [signInData, setSignInData] = useState({
-    email: "",
-    password: ""
+    phone: "",
+    otp: ""
   });
   const [signUpData, setSignUpData] = useState({
     name: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
+    phone: "",
+    otp: ""
   });
+  const [signInOtpSent, setSignInOtpSent] = useState(false);
+  const [signUpOtpSent, setSignUpOtpSent] = useState(false);
+
+  const handleSendSignInOtp = () => {
+    if (!signInData.phone || signInData.phone.length < 10) {
+      toast.error("Please enter a valid phone number");
+      return;
+    }
+    setSignInOtpSent(true);
+    toast.success("OTP sent to your phone!");
+  };
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!signInData.email || !signInData.password) {
+    if (!signInData.phone || !signInData.otp) {
       toast.error("Please fill in all fields");
+      return;
+    }
+
+    if (signInData.otp.length !== 6) {
+      toast.error("Please enter a valid 6-digit OTP");
       return;
     }
 
@@ -33,16 +49,25 @@ const SignIn = () => {
     navigate("/");
   };
 
+  const handleSendSignUpOtp = () => {
+    if (!signUpData.name || !signUpData.phone || signUpData.phone.length < 10) {
+      toast.error("Please enter name and valid phone number");
+      return;
+    }
+    setSignUpOtpSent(true);
+    toast.success("OTP sent to your phone!");
+  };
+
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!signUpData.name || !signUpData.email || !signUpData.password || !signUpData.confirmPassword) {
+    if (!signUpData.name || !signUpData.phone || !signUpData.otp) {
       toast.error("Please fill in all fields");
       return;
     }
 
-    if (signUpData.password !== signUpData.confirmPassword) {
-      toast.error("Passwords do not match");
+    if (signUpData.otp.length !== 6) {
+      toast.error("Please enter a valid 6-digit OTP");
       return;
     }
 
@@ -73,30 +98,47 @@ const SignIn = () => {
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div>
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-phone">Phone Number</Label>
                   <Input
-                    id="signin-email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={signInData.email}
-                    onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
+                    id="signin-phone"
+                    type="tel"
+                    placeholder="+91 XXXXXXXXXX"
+                    value={signInData.phone}
+                    onChange={(e) => setSignInData({ ...signInData, phone: e.target.value })}
                     required
+                    disabled={signInOtpSent}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="signin-password">Password</Label>
-                  <Input
-                    id="signin-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={signInData.password}
-                    onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                    required
-                  />
-                </div>
-                <Button type="submit" className="w-full" size="lg">
-                  Sign In
-                </Button>
+                {!signInOtpSent ? (
+                  <Button type="button" onClick={handleSendSignInOtp} className="w-full" size="lg">
+                    Send OTP
+                  </Button>
+                ) : (
+                  <>
+                    <div>
+                      <Label htmlFor="signin-otp">Enter OTP</Label>
+                      <div className="flex justify-center mt-2">
+                        <InputOTP
+                          maxLength={6}
+                          value={signInData.otp}
+                          onChange={(value) => setSignInData({ ...signInData, otp: value })}
+                        >
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </div>
+                    </div>
+                    <Button type="submit" className="w-full" size="lg">
+                      Verify & Sign In
+                    </Button>
+                  </>
+                )}
               </form>
             </TabsContent>
 
@@ -111,44 +153,51 @@ const SignIn = () => {
                     value={signUpData.name}
                     onChange={(e) => setSignUpData({ ...signUpData, name: e.target.value })}
                     required
+                    disabled={signUpOtpSent}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-phone">Phone Number</Label>
                   <Input
-                    id="signup-email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={signUpData.email}
-                    onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
+                    id="signup-phone"
+                    type="tel"
+                    placeholder="+91 XXXXXXXXXX"
+                    value={signUpData.phone}
+                    onChange={(e) => setSignUpData({ ...signUpData, phone: e.target.value })}
                     required
+                    disabled={signUpOtpSent}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="signup-password">Password</Label>
-                  <Input
-                    id="signup-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={signUpData.password}
-                    onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="signup-confirm">Confirm Password</Label>
-                  <Input
-                    id="signup-confirm"
-                    type="password"
-                    placeholder="••••••••"
-                    value={signUpData.confirmPassword}
-                    onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
-                    required
-                  />
-                </div>
-                <Button type="submit" className="w-full" size="lg">
-                  Create Account
-                </Button>
+                {!signUpOtpSent ? (
+                  <Button type="button" onClick={handleSendSignUpOtp} className="w-full" size="lg">
+                    Send OTP
+                  </Button>
+                ) : (
+                  <>
+                    <div>
+                      <Label htmlFor="signup-otp">Enter OTP</Label>
+                      <div className="flex justify-center mt-2">
+                        <InputOTP
+                          maxLength={6}
+                          value={signUpData.otp}
+                          onChange={(value) => setSignUpData({ ...signUpData, otp: value })}
+                        >
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </div>
+                    </div>
+                    <Button type="submit" className="w-full" size="lg">
+                      Verify & Create Account
+                    </Button>
+                  </>
+                )}
               </form>
             </TabsContent>
           </Tabs>

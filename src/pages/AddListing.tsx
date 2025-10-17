@@ -23,6 +23,7 @@ const AddListing = () => {
     description: "",
     features: ""
   });
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +40,18 @@ const AddListing = () => {
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const newImages = Array.from(files).slice(0, 8 - selectedImages.length);
+      setSelectedImages(prev => [...prev, ...newImages]);
+    }
+  };
+
+  const handleImageClick = () => {
+    document.getElementById('image-upload')?.click();
   };
 
   return (
@@ -64,14 +77,31 @@ const AddListing = () => {
             {/* Car Images */}
             <div>
               <Label htmlFor="images">Car Images *</Label>
-              <div className="mt-2 border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+              <input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                multiple
+                onChange={handleImageSelect}
+                className="hidden"
+              />
+              <div 
+                onClick={handleImageClick}
+                className="mt-2 border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer"
+              >
                 <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-sm text-muted-foreground mb-2">
-                  Click to upload or drag and drop
+                  Click to take photo or upload from gallery
                 </p>
                 <p className="text-xs text-muted-foreground">
                   PNG, JPG up to 10MB (Max 8 images)
                 </p>
+                {selectedImages.length > 0 && (
+                  <p className="text-xs text-primary mt-2">
+                    {selectedImages.length} image(s) selected
+                  </p>
+                )}
               </div>
             </div>
 
