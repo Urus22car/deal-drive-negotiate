@@ -7,11 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
+import AuthDialog from "@/components/AuthDialog";
 
 const CarDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [offerAmount, setOfferAmount] = useState("");
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const isAuthenticated = false; // TODO: Replace with actual auth check
   const [offers, setOffers] = useState([
     { id: 1, amount: 33000, type: "buyer", status: "declined", message: "Initial offer" },
     { id: 2, amount: 34500, type: "seller", status: "pending", message: "Counter offer" }
@@ -30,6 +33,11 @@ const CarDetail = () => {
   };
 
   const handleMakeOffer = () => {
+    if (!isAuthenticated) {
+      setAuthDialogOpen(true);
+      return;
+    }
+
     if (!offerAmount || parseFloat(offerAmount) <= 0) {
       toast.error("Please enter a valid offer amount");
       return;
@@ -177,6 +185,7 @@ const CarDetail = () => {
           </div>
         </div>
       </div>
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

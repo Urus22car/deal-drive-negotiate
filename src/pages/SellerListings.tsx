@@ -130,7 +130,12 @@ const SellerListings = () => {
                     >
                       View Offers
                     </Button>
-                    <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-xs md:text-sm"
+                      onClick={() => navigate(`/add-listing?edit=${car.id}`)}
+                    >
                       Edit
                     </Button>
                   </div>

@@ -1,13 +1,34 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Search, TrendingUp, Shield, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import AuthDialog from "@/components/AuthDialog";
 import heroImage from "@/assets/hero-cars.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const isAuthenticated = false; // TODO: Replace with actual auth check
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/listings?search=${encodeURIComponent(searchQuery)}`);
+    } else {
+      navigate("/listings");
+    }
+  };
+
+  const handleListYourCar = () => {
+    if (isAuthenticated) {
+      navigate("/add-listing");
+    } else {
+      setAuthDialogOpen(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,12 +59,15 @@ const Index = () => {
                 <Input 
                   placeholder="Search by make, model, or keyword..."
                   className="pl-10 h-14 text-lg"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 />
               </div>
               <Button 
                 size="lg" 
                 className="h-14 px-8"
-                onClick={() => navigate("/listings")}
+                onClick={handleSearch}
               >
                 Search
               </Button>
@@ -56,7 +80,7 @@ const Index = () => {
               >
                 Browse All Cars
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={handleListYourCar}>
                 List Your Car
               </Button>
             </div>
@@ -121,13 +145,29 @@ const Index = () => {
               >
                 Start Shopping
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={handleListYourCar}>
                 List Your Car Free
               </Button>
             </div>
           </Card>
         </div>
       </section>
+
+      {/* Disclaimer Footer */}
+      <footer className="bg-muted/50 py-8 border-t">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto">
+            <h3 className="font-semibold mb-2">Disclaimer</h3>
+            <p className="text-sm text-muted-foreground">
+              AutoDeal is a platform that connects buyers and sellers. We facilitate negotiations and communication between parties. 
+              However, we are not responsible for any misconduct, fraudulent activity, or disputes that may occur during or after transactions. 
+              Users are advised to exercise due diligence and verify all information before completing any purchase or sale.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

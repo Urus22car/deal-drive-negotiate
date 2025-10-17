@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,9 @@ import Navbar from "@/components/Navbar";
 
 const AddListing = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit");
+  const isEditing = !!editId;
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -25,6 +28,24 @@ const AddListing = () => {
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
+  // Load existing data if editing
+  useEffect(() => {
+    if (isEditing) {
+      // TODO: Load actual car data based on editId
+      setFormData({
+        title: "2021 BMW 3 Series",
+        price: "35000",
+        year: "2021",
+        mileage: "25000",
+        location: "Los Angeles, CA",
+        transmission: "automatic",
+        fuel: "petrol",
+        description: "Beautiful BMW 3 Series in excellent condition.",
+        features: "Leather Seats, Sunroof, Navigation"
+      });
+    }
+  }, [isEditing]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -34,7 +55,7 @@ const AddListing = () => {
       return;
     }
 
-    toast.success("Listing created successfully!");
+    toast.success(isEditing ? "Listing updated successfully!" : "Listing created successfully!");
     navigate("/my-listings");
   };
 
@@ -68,9 +89,11 @@ const AddListing = () => {
         </Button>
 
         <Card className="p-8">
-          <h1 className="text-3xl font-bold mb-2">List Your Car</h1>
+          <h1 className="text-3xl font-bold mb-2">
+            {isEditing ? "Edit Your Listing" : "List Your Car"}
+          </h1>
           <p className="text-muted-foreground mb-8">
-            Fill in the details to create your listing
+            {isEditing ? "Update your listing details" : "Fill in the details to create your listing"}
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -233,7 +256,7 @@ const AddListing = () => {
                 Cancel
               </Button>
               <Button type="submit" className="flex-1" size="lg">
-                Create Listing
+                {isEditing ? "Update Listing" : "Create Listing"}
               </Button>
             </div>
           </form>

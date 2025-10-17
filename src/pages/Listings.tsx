@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Gauge, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import AuthDialog from "@/components/AuthDialog";
 
 const mockCars = [
   {
@@ -70,6 +72,16 @@ const mockCars = [
 
 const Listings = () => {
   const navigate = useNavigate();
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const isAuthenticated = false; // TODO: Replace with actual auth check
+
+  const handleCarClick = (carId: number) => {
+    if (isAuthenticated) {
+      navigate(`/car/${carId}`);
+    } else {
+      setAuthDialogOpen(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -85,7 +97,7 @@ const Listings = () => {
             <Card 
               key={car.id} 
               className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
-              onClick={() => navigate(`/car/${car.id}`)}
+              onClick={() => handleCarClick(car.id)}
             >
               <div className="relative overflow-hidden h-20 md:h-32">
                 <img 
@@ -127,6 +139,7 @@ const Listings = () => {
           ))}
         </div>
       </div>
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };
