@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Upload } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
@@ -17,6 +18,8 @@ const AddListing = () => {
     year: "",
     mileage: "",
     location: "",
+    transmission: "",
+    fuel: "",
     description: "",
     features: ""
   });
@@ -131,6 +134,35 @@ const AddListing = () => {
                   value={formData.location}
                   onChange={(e) => handleChange("location", e.target.value)}
                 />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <Label htmlFor="transmission">Transmission</Label>
+                <Select value={formData.transmission} onValueChange={(value) => handleChange("transmission", value)}>
+                  <SelectTrigger id="transmission">
+                    <SelectValue placeholder="Select transmission" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="manual">Manual</SelectItem>
+                    <SelectItem value="automatic">Automatic</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="fuel">Fuel Type</Label>
+                <Select value={formData.fuel} onValueChange={(value) => handleChange("fuel", value)}>
+                  <SelectTrigger id="fuel">
+                    <SelectValue placeholder="Select fuel type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="petrol">Petrol</SelectItem>
+                    <SelectItem value="diesel">Diesel</SelectItem>
+                    <SelectItem value="ev">EV</SelectItem>
+                    <SelectItem value="hybrid">Hybrid</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

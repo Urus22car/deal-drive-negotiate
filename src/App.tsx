@@ -9,6 +9,7 @@ import CarDetail from "./pages/CarDetail";
 import SellerListings from "./pages/SellerListings";
 import AddListing from "./pages/AddListing";
 import SellerCarDetail from "./pages/SellerCarDetail";
+import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/my-listings" element={<SellerListings />} />
           <Route path="/add-listing" element={<AddListing />} />
           <Route path="/seller/car/:id" element={<SellerCarDetail />} />
+          <Route path="/signin" element={<SignIn />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
