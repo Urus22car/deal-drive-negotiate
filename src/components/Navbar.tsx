@@ -13,10 +13,7 @@ const Navbar = () => {
             className="flex items-center gap-1 md:gap-2 cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <div className="w-7 h-7 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <Car className="w-4 h-4 md:w-6 md:h-6 text-primary-foreground" />
-            </div>
-            <span className="text-sm md:text-xl font-bold">AutoDeal</span>
+            <img src={logo} alt="AutoBargain" className="h-8 md:h-12" />
           </div>
 
           <div className="flex items-center gap-1 md:gap-4">

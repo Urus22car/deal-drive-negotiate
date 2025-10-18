@@ -14,7 +14,160 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      car_images: {
+        Row: {
+          car_id: string
+          created_at: string
+          id: string
+          image_url: string
+          is_primary: boolean | null
+        }
+        Insert: {
+          car_id: string
+          created_at?: string
+          id?: string
+          image_url: string
+          is_primary?: boolean | null
+        }
+        Update: {
+          car_id?: string
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_primary?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "car_images_car_id_fkey"
+            columns: ["car_id"]
+            isOneToOne: false
+            referencedRelation: "car_listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      car_listings: {
+        Row: {
+          created_at: string
+          description: string | null
+          features: string | null
+          fuel: string | null
+          id: string
+          location: string | null
+          mileage: number | null
+          price: number
+          status: string | null
+          title: string
+          transmission: string | null
+          updated_at: string
+          user_id: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          features?: string | null
+          fuel?: string | null
+          id?: string
+          location?: string | null
+          mileage?: number | null
+          price: number
+          status?: string | null
+          title: string
+          transmission?: string | null
+          updated_at?: string
+          user_id: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          features?: string | null
+          fuel?: string | null
+          id?: string
+          location?: string | null
+          mileage?: number | null
+          price?: number
+          status?: string | null
+          title?: string
+          transmission?: string | null
+          updated_at?: string
+          user_id?: string
+          year?: number
+        }
+        Relationships: []
+      }
+      offers: {
+        Row: {
+          amount: number
+          buyer_id: string
+          car_id: string
+          created_at: string
+          id: string
+          message: string | null
+          seller_id: string
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          buyer_id: string
+          car_id: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          seller_id: string
+          status?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          buyer_id?: string
+          car_id?: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          seller_id?: string
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offers_car_id_fkey"
+            columns: ["car_id"]
+            isOneToOne: false
+            referencedRelation: "car_listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          name: string
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
