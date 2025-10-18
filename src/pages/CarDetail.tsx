@@ -135,7 +135,7 @@ const CarDetail = () => {
                       placeholder="Enter amount"
                       value={offerAmount}
                       onChange={(e) => setOfferAmount(e.target.value)}
-                      className="pl-7"
+                      className="pl-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
                   <Button onClick={handleMakeOffer} size="lg">

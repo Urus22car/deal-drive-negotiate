@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Gauge, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import AuthDialog from "@/components/AuthDialog";
 
 const mockCars = [
   {
@@ -72,15 +70,9 @@ const mockCars = [
 
 const Listings = () => {
   const navigate = useNavigate();
-  const [authDialogOpen, setAuthDialogOpen] = useState(false);
-  const isAuthenticated = false; // TODO: Replace with actual auth check
 
   const handleCarClick = (carId: number) => {
-    if (isAuthenticated) {
-      navigate(`/car/${carId}`);
-    } else {
-      setAuthDialogOpen(true);
-    }
+    navigate(`/car/${carId}`);
   };
 
   return (
@@ -139,7 +131,6 @@ const Listings = () => {
           ))}
         </div>
       </div>
-      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

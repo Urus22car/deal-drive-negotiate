@@ -9,12 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Upload } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
+import AuthDialog from "@/components/AuthDialog";
 
 const AddListing = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("edit");
   const isEditing = !!editId;
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const isAuthenticated = false; // TODO: Replace with actual auth check
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -48,6 +51,11 @@ const AddListing = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!isAuthenticated) {
+      setAuthDialogOpen(true);
+      return;
+    }
     
     // Validation
     if (!formData.title || !formData.price || !formData.year) {
@@ -150,7 +158,7 @@ const AddListing = () => {
                     placeholder="35000"
                     value={formData.price}
                     onChange={(e) => handleChange("price", e.target.value)}
-                    className="pl-7"
+                    className="pl-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     required
                   />
                 </div>
@@ -166,6 +174,7 @@ const AddListing = () => {
                   placeholder="2021"
                   value={formData.year}
                   onChange={(e) => handleChange("year", e.target.value)}
+                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   required
                 />
               </div>
@@ -177,6 +186,7 @@ const AddListing = () => {
                   placeholder="25000"
                   value={formData.mileage}
                   onChange={(e) => handleChange("mileage", e.target.value)}
+                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
               </div>
               <div>
@@ -262,6 +272,7 @@ const AddListing = () => {
           </form>
         </Card>
       </div>
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };
