@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/autobargain-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -52,9 +54,9 @@ const Navbar = () => {
             <Button 
               size="sm"
               className="h-7 px-2 text-xs md:h-10 md:px-4 md:text-sm"
-              onClick={() => navigate("/signin")}
+              onClick={() => user ? signOut().then(() => navigate("/")) : navigate("/signin")}
             >
-              Sign In
+              {user ? "Sign Out" : "Sign In"}
             </Button>
           </div>
         </div>
