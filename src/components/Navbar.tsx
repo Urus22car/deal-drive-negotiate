@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Car } from "lucide-react";
+import logo from "@/assets/autobargain-logo.png";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
