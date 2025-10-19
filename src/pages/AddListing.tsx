@@ -123,10 +123,10 @@ const AddListing = () => {
               >
                 <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-sm text-muted-foreground mb-2">
-                  Click to take photo or upload from gallery
+                  Click to upload multiple car images
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  PNG, JPG up to 10MB (Max 8 images)
+                  PNG, JPG up to 10MB each (Upload up to 8 images)
                 </p>
                 {selectedImages.length > 0 && (
                   <p className="text-xs text-primary mt-2">
@@ -149,13 +149,13 @@ const AddListing = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="price">Asking Price *</Label>
+                <Label htmlFor="price">Asking Price (in ₹) *</Label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₹</span>
                   <Input
                     id="price"
                     type="number"
-                    placeholder="35000"
+                    placeholder="e.g., 500000 (5 Lakh)"
                     value={formData.price}
                     onChange={(e) => handleChange("price", e.target.value)}
                     className="pl-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -179,11 +179,11 @@ const AddListing = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="mileage">Kilometer</Label>
+                <Label htmlFor="mileage">Kilometers Driven</Label>
                 <Input
                   id="mileage"
                   type="number"
-                  placeholder="25000"
+                  placeholder="e.g., 25000"
                   value={formData.mileage}
                   onChange={(e) => handleChange("mileage", e.target.value)}
                   className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -193,7 +193,7 @@ const AddListing = () => {
                 <Label htmlFor="location">Location</Label>
                 <Input
                   id="location"
-                  placeholder="Los Angeles, CA"
+                  placeholder="e.g., Mumbai, Maharashtra"
                   value={formData.location}
                   onChange={(e) => handleChange("location", e.target.value)}
                 />
