@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { Home } from "lucide-react";
 import logo from "@/assets/autobargain-logo.png";
 
 const SignIn = () => {
@@ -206,6 +207,16 @@ const SignIn = () => {
                     </Button>
                   </>
                 )}
+                
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full mt-4"
+                  onClick={() => navigate("/")}
+                >
+                  <Home className="w-4 h-4 mr-2" />
+                  Back to Home
+                </Button>
               </form>
             </TabsContent>
 
@@ -284,6 +295,16 @@ const SignIn = () => {
                     </Button>
                   </>
                 )}
+                
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full mt-4"
+                  onClick={() => navigate("/")}
+                >
+                  <Home className="w-4 h-4 mr-2" />
+                  Back to Home
+                </Button>
               </form>
             </TabsContent>
           </Tabs>
