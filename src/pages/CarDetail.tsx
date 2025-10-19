@@ -59,55 +59,56 @@ const CarDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4 md:py-8">
         <Button 
           variant="ghost" 
-          className="mb-6"
+          size="sm"
+          className="mb-4 md:mb-6"
           onClick={() => navigate(-1)}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to listings
         </Button>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-8">
           {/* Left Column - Images & Details */}
           <div>
-            <div className="rounded-lg overflow-hidden mb-6">
+            <div className="rounded-lg overflow-hidden mb-4 md:mb-6">
               <img 
                 src={carDetails.image} 
                 alt={carDetails.title}
-                className="w-full h-96 object-cover"
+                className="w-full h-48 md:h-96 object-cover"
               />
             </div>
 
-            <Card className="p-6 mb-6">
-              <h1 className="text-3xl font-bold mb-4">{carDetails.title}</h1>
-              <p className="text-4xl font-bold text-primary mb-6">
+            <Card className="p-4 md:p-6 mb-4 md:mb-6">
+              <h1 className="text-xl md:text-3xl font-bold mb-3 md:mb-4">{carDetails.title}</h1>
+              <p className="text-2xl md:text-4xl font-bold text-primary mb-4 md:mb-6">
                 ₹{carDetails.price.toLocaleString()}
               </p>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center text-muted-foreground">
-                  <MapPin className="w-5 h-5 mr-2" />
-                  <span>{carDetails.location}</span>
+              <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
+                <div className="flex items-center text-sm md:text-base text-muted-foreground">
+                  <MapPin className="w-4 h-4 md:w-5 md:h-5 mr-2 flex-shrink-0" />
+                  <span className="truncate">{carDetails.location}</span>
                 </div>
-                <div className="flex items-center text-muted-foreground">
-                  <Gauge className="w-5 h-5 mr-2" />
+                <div className="flex items-center text-sm md:text-base text-muted-foreground">
+                  <Gauge className="w-4 h-4 md:w-5 md:h-5 mr-2 flex-shrink-0" />
                   <span>{carDetails.mileage.toLocaleString()} Km</span>
                 </div>
-                <div className="flex items-center text-muted-foreground">
-                  <Calendar className="w-5 h-5 mr-2" />
+                <div className="flex items-center text-sm md:text-base text-muted-foreground">
+                  <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2 flex-shrink-0" />
                   <span>{carDetails.year}</span>
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">Description</h3>
-                <p className="text-muted-foreground">{carDetails.description}</p>
+              <div className="mb-4 md:mb-6">
+                <h3 className="text-base md:text-lg font-semibold mb-2 md:mb-3">Description</h3>
+                <p className="text-sm md:text-base text-muted-foreground">{carDetails.description}</p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-3">Features</h3>
+                <h3 className="text-base md:text-lg font-semibold mb-2 md:mb-3">Features</h3>
                 <div className="flex flex-wrap gap-2">
                   {carDetails.features.map((feature, index) => (
                     <Badge key={index} variant="secondary">{feature}</Badge>
@@ -119,15 +120,15 @@ const CarDetail = () => {
 
           {/* Right Column - Negotiation */}
           <div>
-            <Card className="p-6 sticky top-8">
-              <div className="flex items-center mb-6">
-                <MessageSquare className="w-6 h-6 mr-2 text-primary" />
-                <h2 className="text-2xl font-bold">Price Negotiation</h2>
+            <Card className="p-4 md:p-6 lg:sticky lg:top-8">
+              <div className="flex items-center mb-4 md:mb-6">
+                <MessageSquare className="w-5 h-5 md:w-6 md:h-6 mr-2 text-primary flex-shrink-0" />
+                <h2 className="text-lg md:text-2xl font-bold">Price Negotiation</h2>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium mb-2">Your Offer</label>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <div className="relative flex-1">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₹</span>
                     <Input 
@@ -138,14 +139,17 @@ const CarDetail = () => {
                       className="pl-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
-                  <Button onClick={handleMakeOffer} size="lg">
+                  <Button 
+                    onClick={handleMakeOffer} 
+                    className="w-full sm:w-auto"
+                  >
                     Make Offer
                   </Button>
                 </div>
               </div>
 
-              <div className="border-t pt-6">
-                <h3 className="font-semibold mb-4">Negotiation History</h3>
+              <div className="border-t pt-4 md:pt-6">
+                <h3 className="text-sm md:text-base font-semibold mb-3 md:mb-4">Negotiation History</h3>
                 <div className="space-y-4">
                   {offers.map((offer) => (
                     <div 
