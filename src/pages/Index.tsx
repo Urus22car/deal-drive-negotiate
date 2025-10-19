@@ -92,7 +92,7 @@ const Index = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose AutoDeal?</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose AutoBargain?</h2>
             <p className="text-xl text-muted-foreground">The smarter way to buy and sell cars</p>
           </div>
 
@@ -130,36 +130,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <Card className="p-12 text-center bg-gradient-to-br from-primary/5 to-accent/5 border-2">
-            <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of buyers and sellers finding their perfect match on AutoDeal
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Button 
-                size="lg"
-                onClick={() => navigate("/listings")}
-              >
-                Start Shopping
-              </Button>
-              <Button size="lg" variant="outline" onClick={handleListYourCar}>
-                List Your Car Free
-              </Button>
-            </div>
-          </Card>
-        </div>
-      </section>
-
       {/* Disclaimer Footer */}
       <footer className="bg-muted/50 py-8 border-t">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="font-semibold mb-2">Disclaimer</h3>
             <p className="text-sm text-muted-foreground">
-              AutoDeal is a platform that connects buyers and sellers. We facilitate negotiations and communication between parties. 
+              AutoBargain is a platform that connects buyers and sellers. We facilitate negotiations and communication between parties. 
               However, we are not responsible for any misconduct, fraudulent activity, or disputes that may occur during or after transactions. 
               Users are advised to exercise due diligence and verify all information before completing any purchase or sale.
             </p>
