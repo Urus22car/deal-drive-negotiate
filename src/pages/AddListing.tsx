@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Upload } from "lucide-react";
+import { ArrowLeft, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import AuthDialog from "@/components/AuthDialog";
@@ -83,6 +83,10 @@ const AddListing = () => {
     document.getElementById('image-upload')?.click();
   };
 
+  const handleRemoveImage = (index: number) => {
+    setSelectedImages(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -134,6 +138,31 @@ const AddListing = () => {
                   </p>
                 )}
               </div>
+              
+              {/* Image Preview */}
+              {selectedImages.length > 0 && (
+                <div className="mt-4">
+                  <p className="text-sm font-medium mb-3">Image Preview:</p>
+                  <div className="grid grid-cols-4 gap-3">
+                    {selectedImages.map((image, index) => (
+                      <div key={index} className="relative group aspect-square">
+                        <img
+                          src={URL.createObjectURL(image)}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-full object-cover rounded-lg border border-border"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(index)}
+                          className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Basic Info */}
