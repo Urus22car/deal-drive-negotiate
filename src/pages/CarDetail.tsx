@@ -1,24 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare } from "lucide-react";
+import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import AuthDialog from "@/components/AuthDialog";
+import { useAuth } from "@/contexts/AuthContext";
+import { getProfileWithPrivacy, ProfileWithPrivacy } from "@/lib/contactPrivacy";
 
 const CarDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [offerAmount, setOfferAmount] = useState("");
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
-  const isAuthenticated = false; // TODO: Replace with actual auth check
+  const [sellerProfile, setSellerProfile] = useState<ProfileWithPrivacy | null>(null);
+  const isAuthenticated = !!user;
   const [offers, setOffers] = useState([
     { id: 1, amount: 33000, type: "buyer", status: "declined", message: "Initial offer" },
     { id: 2, amount: 34500, type: "seller", status: "pending", message: "Counter offer" }
   ]);
+
+  // Mock seller ID - in real app, this would come from carDetails
+  const sellerId = "seller-123";
+
+  // Load seller profile with privacy protection
+  useEffect(() => {
+    const loadSellerProfile = async () => {
+      if (sellerId) {
+        const profile = await getProfileWithPrivacy(sellerId, user?.id);
+        setSellerProfile(profile);
+      }
+    };
+
+    loadSellerProfile();
+  }, [user, sellerId]);
 
   const carDetails = {
     id: 1,
@@ -114,6 +133,38 @@ const CarDetail = () => {
                     <Badge key={index} variant="secondary">{feature}</Badge>
                   ))}
                 </div>
+              </div>
+
+              {/* Seller Contact Info */}
+              <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t">
+                <h3 className="text-base md:text-lg font-semibold mb-3">Seller Information</h3>
+                {sellerProfile ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-muted-foreground">Name:</p>
+                      <p className="text-sm font-medium">{sellerProfile.name}</p>
+                      {!sellerProfile.contactVisible && (
+                        <ShieldCheck className="w-3 h-3 text-muted-foreground" />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-muted-foreground">Phone:</p>
+                      <p className="text-sm font-medium">{sellerProfile.phone}</p>
+                    </div>
+                    {!sellerProfile.contactVisible && (
+                      <p className="text-xs text-orange-500 mt-2">
+                        🔒 Contact details will be visible after your offer is accepted
+                      </p>
+                    )}
+                    {sellerProfile.contactVisible && (
+                      <p className="text-xs text-green-600 mt-2">
+                        ✓ Contact details unlocked - you can now reach the seller
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Loading seller information...</p>
+                )}
               </div>
             </Card>
           </div>

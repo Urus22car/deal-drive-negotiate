@@ -10,14 +10,16 @@ import { ArrowLeft, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import AuthDialog from "@/components/AuthDialog";
+import { useAuth } from "@/contexts/AuthContext";
 
 const AddListing = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("edit");
   const isEditing = !!editId;
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
-  const isAuthenticated = false; // TODO: Replace with actual auth check
+  const isAuthenticated = !!user;
   const [formData, setFormData] = useState({
     title: "",
     price: "",
