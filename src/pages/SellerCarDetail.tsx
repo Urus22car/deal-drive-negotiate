@@ -1,22 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare } from "lucide-react";
+import { ArrowLeft, MapPin, Gauge, Calendar, MessageSquare, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
+import { useAuth } from "@/contexts/AuthContext";
+import { getProfileWithPrivacy, ProfileWithPrivacy } from "@/lib/contactPrivacy";
 
 const SellerCarDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [counterOffer, setCounterOffer] = useState("");
+  const [buyerProfiles, setBuyerProfiles] = useState<Record<string, ProfileWithPrivacy>>({});
   const [offers, setOffers] = useState([
-    { id: 1, amount: 33000, buyerName: "John D.", status: "declined", timestamp: "2 hours ago" },
-    { id: 2, amount: 34000, buyerName: "Sarah M.", status: "pending", timestamp: "1 hour ago" },
-    { id: 3, amount: 34500, buyerName: "Mike R.", status: "pending", timestamp: "30 min ago" }
+    { id: 1, buyerId: "buyer-1", amount: 33000, buyerName: "John D.", status: "declined", timestamp: "2 hours ago" },
+    { id: 2, buyerId: "buyer-2", amount: 34000, buyerName: "Sarah M.", status: "accepted", timestamp: "1 hour ago" },
+    { id: 3, buyerId: "buyer-3", amount: 34500, buyerName: "Mike R.", status: "pending", timestamp: "30 min ago" }
   ]);
+
+  // Load buyer profiles with privacy protection
+  useEffect(() => {
+    const loadBuyerProfiles = async () => {
+      if (!user) return;
+
+      const profiles: Record<string, ProfileWithPrivacy> = {};
+      
+      for (const offer of offers) {
+        if (offer.buyerId) {
+          const profile = await getProfileWithPrivacy(offer.buyerId, user.id);
+          if (profile) {
+            profiles[offer.buyerId] = profile;
+          }
+        }
+      }
+      
+      setBuyerProfiles(profiles);
+    };
+
+    loadBuyerProfiles();
+  }, [user, offers.length]);
 
   const carDetails = {
     id: 1,
@@ -124,7 +150,11 @@ const SellerCarDetail = () => {
               </div>
 
               <div className="space-y-4">
-                {offers.map((offer) => (
+                {offers.map((offer) => {
+                  const buyerProfile = buyerProfiles[offer.buyerId];
+                  const showContactInfo = buyerProfile?.contactVisible;
+                  
+                  return (
                   <Card 
                     key={offer.id}
                     className={`p-4 ${
@@ -134,16 +164,31 @@ const SellerCarDetail = () => {
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div>
+                      <div className="flex-1">
                         <p className="text-2xl font-bold text-primary">
                           ₹{offer.amount.toLocaleString()}
                         </p>
-                        <p className="text-sm text-muted-foreground">
-                          from {offer.buyerName}
-                        </p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <p className="text-sm text-muted-foreground">
+                            from {buyerProfile?.name || offer.buyerName}
+                          </p>
+                          {!showContactInfo && (
+                            <ShieldCheck className="w-3 h-3 text-muted-foreground" />
+                          )}
+                        </div>
                         <p className="text-xs text-muted-foreground mt-1">
                           {offer.timestamp}
                         </p>
+                        {!showContactInfo && offer.status === "pending" && (
+                          <p className="text-xs text-orange-500 mt-2">
+                            🔒 Contact details will be visible after accepting
+                          </p>
+                        )}
+                        {showContactInfo && (
+                          <p className="text-xs text-green-600 mt-2">
+                            ✓ Contact: {buyerProfile?.phone}
+                          </p>
+                        )}
                       </div>
                       <Badge 
                         variant={
@@ -201,7 +246,8 @@ const SellerCarDetail = () => {
                       </div>
                     )}
                   </Card>
-                ))}
+                );
+                })}
 
                 {offers.filter(o => o.status === "pending").length === 0 && (
                   <div className="text-center py-8 text-muted-foreground">

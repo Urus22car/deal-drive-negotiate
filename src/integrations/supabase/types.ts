@@ -146,6 +146,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          contact_visible: boolean | null
           created_at: string
           id: string
           name: string
@@ -153,6 +154,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          contact_visible?: boolean | null
           created_at?: string
           id: string
           name: string
@@ -160,6 +162,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          contact_visible?: boolean | null
           created_at?: string
           id?: string
           name?: string
@@ -173,7 +176,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_accepted_offer_with: {
+        Args: { _other_user_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
