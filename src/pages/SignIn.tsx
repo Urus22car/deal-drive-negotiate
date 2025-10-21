@@ -24,6 +24,8 @@ const SignIn = () => {
   });
   const [signInOtpSent, setSignInOtpSent] = useState(false);
   const [signUpOtpSent, setSignUpOtpSent] = useState(false);
+  const [signInSessionId, setSignInSessionId] = useState("");
+  const [signUpSessionId, setSignUpSessionId] = useState("");
 
   const handleSendSignInOtp = async () => {
     if (!signInData.phone || signInData.phone.length < 10) {
@@ -32,12 +34,14 @@ const SignIn = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        phone: signInData.phone,
+      const { data, error } = await supabase.functions.invoke('send-otp', {
+        body: { phone: signInData.phone },
       });
 
       if (error) throw error;
+      if (!data.success) throw new Error(data.message || "Failed to send OTP");
       
+      setSignInSessionId(data.sessionId);
       setSignInOtpSent(true);
       toast.success("OTP sent to your phone!");
     } catch (error: any) {
@@ -59,13 +63,23 @@ const SignIn = () => {
     }
 
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        phone: signInData.phone,
-        token: signInData.otp,
-        type: 'sms'
+      // Verify OTP with 2Factor.in
+      const { data: verifyData, error: verifyError } = await supabase.functions.invoke('send-otp?action=verify', {
+        body: { sessionId: signInSessionId, otp: signInData.otp },
       });
 
-      if (error) throw error;
+      if (verifyError) throw verifyError;
+      if (!verifyData.success) throw new Error(verifyData.message || "Invalid OTP");
+
+      // Sign in with Supabase using phone
+      const { error: authError } = await supabase.auth.signInWithOtp({
+        phone: signInData.phone,
+        options: {
+          shouldCreateUser: false,
+        }
+      });
+
+      if (authError) throw authError;
 
       toast.success("Welcome back!");
       navigate("/");
@@ -81,17 +95,14 @@ const SignIn = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        phone: signUpData.phone,
-        options: {
-          data: {
-            name: signUpData.name
-          }
-        }
+      const { data, error } = await supabase.functions.invoke('send-otp', {
+        body: { phone: signUpData.phone },
       });
 
       if (error) throw error;
+      if (!data.success) throw new Error(data.message || "Failed to send OTP");
 
+      setSignUpSessionId(data.sessionId);
       setSignUpOtpSent(true);
       toast.success("OTP sent to your phone!");
     } catch (error: any) {
@@ -113,13 +124,25 @@ const SignIn = () => {
     }
 
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        phone: signUpData.phone,
-        token: signUpData.otp,
-        type: 'sms'
+      // Verify OTP with 2Factor.in
+      const { data: verifyData, error: verifyError } = await supabase.functions.invoke('send-otp?action=verify', {
+        body: { sessionId: signUpSessionId, otp: signUpData.otp },
       });
 
-      if (error) throw error;
+      if (verifyError) throw verifyError;
+      if (!verifyData.success) throw new Error(verifyData.message || "Invalid OTP");
+
+      // Create account with Supabase
+      const { error: authError } = await supabase.auth.signInWithOtp({
+        phone: signUpData.phone,
+        options: {
+          data: {
+            name: signUpData.name
+          }
+        }
+      });
+
+      if (authError) throw authError;
 
       toast.success("Account created successfully!");
       navigate("/");
