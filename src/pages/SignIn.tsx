@@ -34,7 +34,7 @@ const SignIn = () => {
     }
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-otp', {
+      const { data, error } = await supabase.functions.invoke('send-otp?action=send', {
         body: { phone: signInData.phone },
       });
 
@@ -95,7 +95,7 @@ const SignIn = () => {
     }
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-otp', {
+      const { data, error } = await supabase.functions.invoke('send-otp?action=send', {
         body: { phone: signUpData.phone },
       });
 
