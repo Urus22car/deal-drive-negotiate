@@ -78,52 +78,52 @@ const Listings = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-4 md:py-8">
-        <div className="mb-4 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">Available Cars</h1>
-          <p className="text-sm md:text-base text-muted-foreground">Find your perfect car and start negotiating</p>
+      <div className="container mx-auto px-3 py-3 md:py-8">
+        <div className="mb-3 md:mb-8">
+          <h1 className="text-xl md:text-4xl font-bold mb-1 md:mb-2">Available Cars</h1>
+          <p className="text-xs md:text-base text-muted-foreground">Find your perfect car and start negotiating</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {mockCars.map((car) => (
             <Card 
               key={car.id} 
               className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
               onClick={() => handleCarClick(car.id)}
             >
-              <div className="relative overflow-hidden h-48 md:h-64">
+              <div className="relative overflow-hidden h-32 md:h-64">
                 <img 
                   src={car.image} 
                   alt={car.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs">
+                <Badge className="absolute top-1 right-1 bg-primary text-primary-foreground text-[10px] md:text-xs px-1.5 py-0.5">
                   {car.status === "negotiating" ? "In Negotiation" : "Available"}
                 </Badge>
               </div>
               
-              <div className="p-4 md:p-6">
-                <h3 className="text-base md:text-xl font-semibold mb-2 line-clamp-1">{car.title}</h3>
-                <p className="text-xl md:text-3xl font-bold text-primary mb-3 md:mb-4">
+              <div className="p-3 md:p-6">
+                <h3 className="text-sm md:text-xl font-semibold mb-1 md:mb-2 line-clamp-1">{car.title}</h3>
+                <p className="text-lg md:text-3xl font-bold text-primary mb-2 md:mb-4">
                   ₹{car.price.toLocaleString()}
                 </p>
                 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                <div className="space-y-1 md:space-y-2 mb-3 md:mb-4">
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <MapPin className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
                     <span className="truncate">{car.location}</span>
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Gauge className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <Gauge className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
                     {car.mileage.toLocaleString()} Km
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <div className="flex items-center text-xs md:text-sm text-muted-foreground">
+                    <Calendar className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
                     {car.year}
                   </div>
                 </div>
 
-                <Button className="w-full" size="sm">
+                <Button className="w-full text-xs md:text-sm h-7 md:h-9" size="sm">
                   View Details & Make Offer
                 </Button>
               </div>

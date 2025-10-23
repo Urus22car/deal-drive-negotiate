@@ -20,16 +20,16 @@ const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+      <AlertDialogContent className="max-w-[90vw] md:max-w-md">
         <AlertDialogHeader>
-          <AlertDialogTitle>Sign In Required</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-base md:text-lg">Sign In Required</AlertDialogTitle>
+          <AlertDialogDescription className="text-xs md:text-sm">
             You need to sign in or create an account to access this feature.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => navigate("/signin")}>
+        <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+          <AlertDialogCancel className="h-8 md:h-10 text-xs md:text-sm">Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => navigate("/signin")} className="h-8 md:h-10 text-xs md:text-sm">
             Sign In / Sign Up
           </AlertDialogAction>
         </AlertDialogFooter>

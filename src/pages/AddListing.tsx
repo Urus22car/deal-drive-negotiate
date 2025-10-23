@@ -92,21 +92,21 @@ const AddListing = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
+      <div className="container mx-auto px-3 py-4 md:py-8 max-w-3xl">
         <Button 
           variant="ghost" 
-          className="mb-6"
+          className="mb-4 md:mb-6 h-7 md:h-10 text-xs md:text-sm"
           onClick={() => navigate("/my-listings")}
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
           Back to my listings
         </Button>
 
-        <Card className="p-8">
-          <h1 className="text-3xl font-bold mb-2">
+        <Card className="p-4 md:p-8">
+          <h1 className="text-xl md:text-3xl font-bold mb-1 md:mb-2">
             {isEditing ? "Edit Your Listing" : "List Your Car"}
           </h1>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-xs md:text-base text-muted-foreground mb-4 md:mb-8">
             {isEditing ? "Update your listing details" : "Fill in the details to create your listing"}
           </p>
 
