@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import AuthDialog from "@/components/AuthDialog";
 import { useAuth } from "@/contexts/AuthContext";
+import { validateListing, getFirstErrorMessage } from "@/lib/validation";
 
 const AddListing = () => {
   const navigate = useNavigate();
@@ -59,9 +60,10 @@ const AddListing = () => {
       return;
     }
     
-    // Validation
-    if (!formData.title || !formData.price || !formData.year) {
-      toast.error("Please fill in all required fields");
+    // Validate using zod schema
+    const validation = validateListing(formData);
+    if (!validation.success) {
+      toast.error(getFirstErrorMessage(validation.error));
       return;
     }
 
