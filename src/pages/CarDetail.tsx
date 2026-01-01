@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import AuthDialog from "@/components/AuthDialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { getProfileWithPrivacy, ProfileWithPrivacy } from "@/lib/contactPrivacy";
+import { validateOffer, getFirstErrorMessage } from "@/lib/validation";
 
 const CarDetail = () => {
   const { id } = useParams();
@@ -57,14 +58,16 @@ const CarDetail = () => {
       return;
     }
 
-    if (!offerAmount || parseFloat(offerAmount) <= 0) {
-      toast.error("Please enter a valid offer amount");
+    // Validate using zod schema
+    const validation = validateOffer(offerAmount);
+    if (!validation.success) {
+      toast.error(getFirstErrorMessage(validation.error));
       return;
     }
     
     const newOffer = {
       id: offers.length + 1,
-      amount: parseFloat(offerAmount),
+      amount: validation.data.amount,
       type: "buyer",
       status: "pending",
       message: "Your offer"
