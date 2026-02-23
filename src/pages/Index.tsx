@@ -53,12 +53,12 @@ const Index = () => {
               Buy or sell used cars with confidence. Make offers, counter-offers, and reach the perfect deal directly with sellers.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-2 mb-4 md:mb-8">
+            <div className="flex flex-row gap-2 mb-4 md:mb-8">
               <div className="flex-1 relative">
-                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 md:w-5 h-3.5 md:h-5 text-muted-foreground" />
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 md:w-5 h-3 md:h-5 text-muted-foreground" />
                 <Input 
                   placeholder="Search by make, model..."
-                  className="pl-7 md:pl-10 h-8 md:h-14 text-xs md:text-lg"
+                  className="pl-6 md:pl-10 h-7 md:h-14 text-[10px] md:text-lg"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -66,17 +66,17 @@ const Index = () => {
               </div>
               <Button 
                 size="sm"
-                className="h-8 md:h-14 px-3 md:px-8 text-xs md:text-base"
+                className="h-7 md:h-14 px-2 md:px-8 text-[10px] md:text-base"
                 onClick={handleSearch}
               >
                 Search
               </Button>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+            <div className="flex flex-row gap-2">
               <Button 
                 size="sm"
-                className="w-full sm:w-auto h-8 md:h-11 text-xs md:text-base"
+                className="h-7 md:h-11 px-2 md:px-4 text-[10px] md:text-base"
                 onClick={() => navigate("/listings")}
               >
                 Browse All Cars
@@ -84,7 +84,7 @@ const Index = () => {
               <Button 
                 size="sm"
                 variant="outline" 
-                className="w-full sm:w-auto h-8 md:h-11 text-xs md:text-base"
+                className="h-7 md:h-11 px-2 md:px-4 text-[10px] md:text-base"
                 onClick={handleListYourCar}
               >
                 List Your Car
