@@ -95,40 +95,40 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-8 md:py-20 bg-muted/30">
+      <section className="py-5 md:py-20 bg-muted/30">
         <div className="container mx-auto px-3">
-          <div className="text-center mb-6 md:mb-16">
-            <h2 className="text-xl md:text-4xl font-bold mb-1 md:mb-4">Why Choose AutoBargain?</h2>
-            <p className="text-sm md:text-xl text-muted-foreground">The smarter way to buy and sell cars</p>
+          <div className="text-center mb-4 md:mb-16">
+            <h2 className="text-lg md:text-4xl font-bold mb-0.5 md:mb-4">Why Choose AutoBargain?</h2>
+            <p className="text-xs md:text-xl text-muted-foreground">The smarter way to buy and sell cars</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
-            <Card className="p-3 md:p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2 md:mb-6">
-                <MessageSquare className="w-5 h-5 md:w-8 md:h-8 text-primary" />
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-8">
+            <Card className="p-2 md:p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-8 h-8 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-1.5 md:mb-6">
+                <MessageSquare className="w-4 h-4 md:w-8 md:h-8 text-primary" />
               </div>
-              <h3 className="text-sm md:text-2xl font-bold mb-1 md:mb-3">Direct Negotiation</h3>
-              <p className="text-xs md:text-base text-muted-foreground">
+              <h3 className="text-xs md:text-2xl font-bold mb-0.5 md:mb-3">Direct Negotiation</h3>
+              <p className="text-[10px] md:text-base text-muted-foreground leading-snug">
                 Make offers and counter-offers in real-time. Reach the perfect price through transparent negotiation.
               </p>
             </Card>
 
-            <Card className="p-3 md:p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-2 md:mb-6">
-                <Shield className="w-5 h-5 md:w-8 md:h-8 text-accent" />
+            <Card className="p-2 md:p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-8 h-8 md:w-16 md:h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-1.5 md:mb-6">
+                <Shield className="w-4 h-4 md:w-8 md:h-8 text-accent" />
               </div>
-              <h3 className="text-sm md:text-2xl font-bold mb-1 md:mb-3">Secure Platform</h3>
-              <p className="text-xs md:text-base text-muted-foreground">
+              <h3 className="text-xs md:text-2xl font-bold mb-0.5 md:mb-3">Secure Platform</h3>
+              <p className="text-[10px] md:text-base text-muted-foreground leading-snug">
                 Verified listings and secure transactions. Buy and sell with confidence and peace of mind.
               </p>
             </Card>
 
-            <Card className="p-3 md:p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2 md:mb-6">
-                <TrendingUp className="w-5 h-5 md:w-8 md:h-8 text-primary" />
+            <Card className="p-2 md:p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-8 h-8 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-1.5 md:mb-6">
+                <TrendingUp className="w-4 h-4 md:w-8 md:h-8 text-primary" />
               </div>
-              <h3 className="text-sm md:text-2xl font-bold mb-1 md:mb-3">Best Prices</h3>
-              <p className="text-xs md:text-base text-muted-foreground">
+              <h3 className="text-xs md:text-2xl font-bold mb-0.5 md:mb-3">Best Prices</h3>
+              <p className="text-[10px] md:text-base text-muted-foreground leading-snug">
                 No hidden fees or middlemen. Get the best deal through direct buyer-seller negotiation.
               </p>
             </Card>
